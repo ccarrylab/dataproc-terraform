@@ -6,4 +6,4 @@
 *.plan
 # Module directory
 .terraform/
-#credentials/
+credentials/
