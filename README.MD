@@ -11,6 +11,8 @@ Table of Contents (dataproc cluster debian-9 with zookeeper, kafka ,BigQuery and
 8. [Testing Kafka](testing-kafka)
 9. [Reporting bugs](#reporting-bugs)
 10. [Patches and pull requests](#patches-and-pull-requests)
+11. [License](#license)
+12. [Code of conduct](#code-of-conduct)
 
 ### Pre-reqs
 1. [Download and Install Terraform](https://www.terraform.io/downloads.html)
@@ -150,4 +152,10 @@ Bugs have auto template defined. Please view it [here](https://github.com/cloudg
 
 ### Patches and pull requests
 
-Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary
+Patches can be submitted as GitHub pull requests. If using GitHub please make sure your branch applies to the current master as a 'fast forward' merge (i.e. without creating a merge commit). Use the `git rebase` command to update your branch to the current master if necessary.
+
+### License
+  * Please see the [LICENSE file](https://github.com/dwaiba/dataproc-terraform/blob/master/LICENSE) for licensing information.
+
+### Code of Conduct
+  * Please see the [Code of Conduct](https://github.com/dwaiba/dataproc-terraform/blob/master/CODE_OF_CONDUCT.md)
