@@ -96,7 +96,7 @@ Pre-req:
 
 Plan:
 
-`terraform init && terraform plan -var cluster_location=europe-west2 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeper 3 masters>> -out "run.plan"`
+`terraform init && terraform plan -var cluster_location=us-east1 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeeper 3 masters>> -out "run.plan"`
 
 Apply:
 
@@ -104,7 +104,7 @@ Apply:
 
 Destroy:
 
-`terraform destroy -var cluster_location=europe-west2 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeper 3 masters>>`
+`terraform destroy -var cluster_location=us-east1 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeeper 3 masters>>`
 
 
  ### Testing Kafka
