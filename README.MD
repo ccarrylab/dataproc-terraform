@@ -47,7 +47,7 @@ Table of Contents (dataproc cluster debian-9 with zookeeper, kafka ,BigQuery and
 
 Name | Role | Staging Bucket
 --- | --- | ---
-poccluster-m<br />poccluster-w-*| **Default 3 Masters and Auto HA with Zookepeer** <br />Number of workers are prompted | dataproc-poc-staging-bucket
+poccluster-m<br />poccluster-w-*| **Default 3 Masters and Auto HA with Zookeeper** <br />Number of workers are prompted | dataproc-poc-staging-bucket
 
 ### Cloud Dataproc version
 Version | Includes | Base OS | Released On | Last Updated (sub-minor version) | Notes
@@ -125,28 +125,12 @@ Destroy:
   
   `for i in {0..10}; do echo "message${i}"; sleep 1; done `
   
-  `/usr/lib/kafka/bin/kafka-console-producer.sh --broker-list ${CLUSTER_NAME}-w-0:9092 --topic test &`
+  `nohup /usr/lib/kafka/bin/kafka-console-producer.sh --broker-list ${CLUSTER_NAME}-w-0:9092 --topic test &`
   
   User worker 1 as broker to consume those 10 messages as they come.This can also be run in any other master or worker node of the cluster.
 
   `/usr/lib/kafka/bin/kafka-console-consumer.sh --bootstrap-server ${CLUSTER_NAME}-w-1:9092 --topic test --from-beginning`
-
-
-   .
-   
-    
-        
-    
-    
-
-    
-
-
-    
   
-    
-
-
 ### Reporting bugs
 
 Please report bugs  by opening an issue in the [GitHub Issue Tracker](https://github.com/cloudgear-io/gke-terraform/issues).
