@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "dataprocopen" {
   name    = "${var.project}-dataprocopen"
-  network = "${google_compute_network.dataproc_network.name}"
+  network = google_compute_network.dataproc_network.name
 
   // Allow ping
   allow {
@@ -18,6 +18,7 @@ resource "google_compute_firewall" "dataprocopen" {
     protocol = "tcp"
     ports    = ["1-65535"]
   }
+
   // Allow incoming HTTP & HTTPS traffic
   //allow {
   //  protocol = "tcp"
@@ -28,3 +29,4 @@ resource "google_compute_firewall" "dataprocopen" {
     ports    = ["1-65535"]
   }
 }
+
