@@ -52,7 +52,7 @@ poccluster-m<br />poccluster-w-*| **Default 3 Masters and Auto HA with Zookeeper
 ### Cloud Dataproc version
 Version | Includes | Base OS | Released On | Last Updated (sub-minor version) | Notes
 --- | --- | --- | --- |--- |---
-1.4.15-deb9 | [Apache Spark 2.4.4](https://spark.apache.org/docs/2.4.4/)<br />[Apache Hadoop 2.9.2](https://hadoop.apache.org/docs/r2.9.2/index.html)<br />[Apache Pig 0.17.0](https://pig.apache.org/docs/r0.17.0/)<br />Apache Hive 2.3.5<br />[Apache Tez 0.9.2*](https://tez.apache.org/releases/apache-tez-0-9-2.html)<br />[Cloud Storage connector 1.9.17-hadoop2](https://github.com/GoogleCloudPlatform/bigdata-interop/releases/tag/v1.9.17)<br/>[Scala 2.11.12](https://www.scala-lang.org/download/2.11.12.html)<br/>[Python 2.7](https://www.python.org/download/releases/2.7/) | Debian 9 | 2019/03/22 | 2019/09/26<br />([1.4.15-deb9](https://cloud.google.com/dataproc/docs/release-notes#September_26_2019)) | Based on Debian 9.
+1.4-deb9 | [Apache Spark 2.4.4](https://spark.apache.org/docs/2.4.4/)<br />[Apache Hadoop 2.9.2](https://hadoop.apache.org/docs/r2.9.2/index.html)<br />[Apache Pig 0.17.0](https://pig.apache.org/docs/r0.17.0/)<br />Apache Hive 2.3.6<br />[Apache Tez 0.9.2*](https://tez.apache.org/releases/apache-tez-0-9-2.html)<br />[Cloud Storage connector 1.9.17-hadoop2](https://github.com/GoogleCloudPlatform/bigdata-interop/releases/tag/v1.9.17) | Debian 9 | 2020/02/03 | 2020/02/03<br />([1.4.21-deb9](https://cloud.google.com/dataproc/docs/release-notes#February_03_2020)) | All releases on and after November 2, 2018 will be based on Debian 9.
 
 * > More @ [Supported Cloud Dataproc versions](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#supported_cloud_dataproc_versions)
 
@@ -96,7 +96,7 @@ Pre-req:
 
 Plan:
 
-`terraform init && terraform plan -var cluster_location=us-east1 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeeper 3 masters>> -out "run.plan"`
+`terraform init && terraform plan -var bucket_name_dp=testbuckdp -var cluster_dp_name=tstdppocclus cluster_location=europe-west2 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeper 3 masters>> -out "run.plan"`
 
 Apply:
 
@@ -104,14 +104,13 @@ Apply:
 
 Destroy:
 
-`terraform destroy -var cluster_location=us-east1 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeeper 3 masters>>`
-
+`terraform destroy -var bucket_name_dp=testbuckdp -var cluster_dp_name=tstdppocclus -var cluster_location=europe-west2 -var project=<<your-google-cloud-project-name>> -var worker_num_instances=<<number of workers for the default auto ha with zookeper 3 masters>>`
 
  ### Testing Kafka
 
   Once the cluster has been created Kafka should be running on all worker nodes in the cluster, and Kafka libraries should be installed on the master node(s). You can test your Kafka setup by creating a simple topic and publishing to it with Kafka's command-line tools, after SSHing into one of your master nodes:
 
-  `gcloud compute ssh gcloud compute ssh poccluster-m --zone europe-west2-b`
+  `gcloud compute ssh clustername-m-0`
 
    Create a test topic, just talking to the local master's zookeeper server.
 

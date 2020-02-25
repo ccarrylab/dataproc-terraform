@@ -3,4 +3,3 @@ provider "google" {
   project     = var.project
   region      = "${var.cluster_location}-a"
 }
-
