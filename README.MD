@@ -8,7 +8,7 @@ Table of Contents (dataproc cluster debian-9 with zookeeper, kafka ,BigQuery and
 5. [URLs and extra components via dataproc-initialization-actions](#urls-and-extra-components-via-dataproc-initialization-actions)
 6. [Terraform graph](#terraform-graph)
 7. [Automatic provisioning](#automatic-provisioning)
-8. [Testing Kafka](testing-kafka)
+8. [Testing Kafka](#testing-kafka)
 9. [Reporting bugs](#reporting-bugs)
 10. [Patches and pull requests](#patches-and-pull-requests)
 11. [License](#license)
@@ -110,25 +110,29 @@ Destroy:
 
   Once the cluster has been created Kafka should be running on all worker nodes in the cluster, and Kafka libraries should be installed on the master node(s). You can test your Kafka setup by creating a simple topic and publishing to it with Kafka's command-line tools, after SSHing into one of your master nodes:
 
-  `gcloud compute ssh clustername-m-0`
+    ```bash
+    gcloud compute ssh <CLUSTER_NAME>-m-0
 
-   Create a test topic, just talking to the local master's zookeeper server.
+    # Create a test topic, just talking to the local master's zookeeper server.
+    /usr/lib/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create \
+        --replication-factor 1 --partitions 1 --topic test
+    /usr/lib/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --list
 
-  `/usr/lib/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create  --replication-factor 1 --partitions 1 --topic test`
+    # Use worker 0 as broker to publish 100 messages over 100 seconds
+    # asynchronously.
+    CLUSTER_NAME=$(/usr/share/google/get_metadata_value attributes/dataproc-cluster-name)
+    for i in {0..100}; do echo "message${i}"; sleep 1; done |
+        /usr/lib/kafka/bin/kafka-console-producer.sh \
+            --broker-list ${CLUSTER_NAME}-w-0:9092 --topic test &
 
-  `/usr/lib/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --list `
+    # User worker 1 as broker to consume those 100 messages as they come.
+    # This can also be run in any other master or worker node of the cluster.
+    /usr/lib/kafka/bin/kafka-console-consumer.sh \
+        --bootstrap-server ${CLUSTER_NAME}-w-1:9092 \
+        --topic test --from-beginning
+    ```
 
-  Use worker 0 as broker to publish 10 messages over 10 seconds asynchronously.
-
-  `export CLUSTER_NAME=$(/usr/share/google/get_metadata_value attributes/dataproc-cluster-name)`
-  
-  `for i in {0..10}; do echo "message${i}"; sleep 1; done `
-  
-  `nohup /usr/lib/kafka/bin/kafka-console-producer.sh --broker-list ${CLUSTER_NAME}-w-0:9092 --topic test &`
-  
-  User worker 1 as broker to consume those 10 messages as they come.This can also be run in any other master or worker node of the cluster.
-
-  `/usr/lib/kafka/bin/kafka-console-consumer.sh --bootstrap-server ${CLUSTER_NAME}-w-1:9092 --topic test --from-beginning`
+You can find more information about using initialization actions with Dataproc in the [Dataproc documentation](https://cloud.google.com/dataproc/init-actions).
   
 ### Reporting bugs
 
