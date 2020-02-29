@@ -190,9 +190,10 @@ resource "google_dataproc_job" "pyspark" {
   }
 }
 
+
 resource "google_bigquery_dataset" "default" {
-  dataset_id                  = "testdataset"
-  friendly_name               = "test"
+  dataset_id                  = var.bq_dataset
+  friendly_name               = var.bq_dataset_name
   description                 = "This is a test description"
   location                    = lookup(var.dataprocbuckloc, var.cluster_location)
   default_table_expiration_ms = 3600000

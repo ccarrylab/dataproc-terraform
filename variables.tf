@@ -60,3 +60,11 @@ variable "dataprocbuckloc" {
     "us-west3"        = "US"
   }
 }
+
+variable "bq_dataset" {
+  default     = ""
+  description = "The BigQuery Dataset ID name"
+}
+variable "bq_dataset_name" {
+  default = "The BigQuery Dataset Friendly name"
+}
