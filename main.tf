@@ -66,12 +66,6 @@ resource "google_dataproc_cluster" "tstdataprocclus" {
       script      = "gs://dataproc-initialization-actions/ganglia/ganglia.sh"
       timeout_sec = 500
     }
-    /**
-    initialization_action {
-      script      = "gs://dataproc-initialization-actions/zookeeper/zookeeper.sh"
-      timeout_sec = 5000
-    }
-**/
     initialization_action {
       script      = "gs://dataproc-initialization-actions/docker/docker.sh"
       timeout_sec = 500
@@ -200,7 +194,7 @@ resource "google_bigquery_dataset" "default" {
   dataset_id                  = "testdataset"
   friendly_name               = "test"
   description                 = "This is a test description"
-  location                    = "EU"
+  location                    = lookup(var.dataprocbuckloc, var.cluster_location)
   default_table_expiration_ms = 3600000
 
   labels = {

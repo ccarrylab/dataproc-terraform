@@ -8,3 +8,4 @@
 .terraform/
 credentials/
 .terraform*
+.idea/
