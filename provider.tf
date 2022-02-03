@@ -1,5 +1,5 @@
 provider "google" {
   credentials = file("credentials/google.json")
-  project     = var.project
-  region      = "${var.cluster_location}-a"
+  project     = "orbital-ability-340123"
+  region      = "us-east4-a"
 }
